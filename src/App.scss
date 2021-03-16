@@ -1,0 +1,149 @@
+@import './breakpoints.scss';
+
+.center {
+  display: flex;
+  justify-content: center;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+}
+
+.tag {
+  background-color: white;
+  color: var(--theme-color);
+  padding: 3px 6px;
+  border: 1px solid var(--theme-color);
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 500;
+  margin: 5px;
+}
+
+.tag-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.error {
+  height: min-content;
+}
+
+.no-todos-container {
+  text-align: center;
+  color: var(--grey-600);
+  font-size: 18px;
+}
+
+.card {
+  background-color: white;
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  box-shadow: var(--box-shadow-theme);
+  overflow-y: auto;
+  color: var(--grey-800);
+  font-size: 16px;
+}
+
+.card-header {
+  background-color: var(--grey-100);
+  text-align: center;
+  height: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid var(--grey-200);
+
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--theme-color-light);
+  }
+}
+
+.todo-container {
+  box-sizing: border-box;
+  height: min-content;
+  label,
+  .chakra-checkbox__label {
+    width: 100%;
+  }
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: start;
+  justify-content: start;
+  padding: 10px 16px;
+  margin: 0;
+
+  .row {
+    cursor: pointer;
+    margin-top: -5px;
+  }
+
+  &:hover {
+    box-shadow: var(--box-shadow);
+    border-radius: 8px;
+  }
+}
+
+.todo-container--overdue {
+  .tag {
+    color: var(--red-400);
+    border-color: var(--red-400);
+  }
+}
+
+.todo-container--complete {
+  .description {
+    text-decoration: line-through;
+    color: var(--grey-500);
+  }
+}
+
+.app-container {
+  background-color: var(--theme-color);
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  .chakra-alert {
+    flex-direction: column;
+  }
+
+  @media (min-width: $screen-xs) {
+    .row {
+      flex-direction: row;
+      justify-content: space-between;
+      margin: auto;
+    }
+
+    .todo-container {
+      align-items: center;
+    }
+  }
+
+  @media (min-width: $screen-sm) {
+    .todo-container {
+      margin: 0 40px;
+    }
+
+    .card-header {
+      margin-bottom: 40px;
+    }
+
+    .card {
+      margin: 10% 0px;
+      height: 80%;
+      border-radius: 4px;
+    }
+
+    .chakra-alert {
+      flex-direction: row;
+    }
+  }
+}
