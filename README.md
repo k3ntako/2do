@@ -1,5 +1,5 @@
 # To Do App
-Our clients have asked us to build a new To Do application but wanted us to build a simple proof of concept before they invest in this further. To create this proof of concept, our team used a mock API which return dummy todo data to power the frontend and showcase the user experience. 
+Our clients have asked us to build a new To Do application but wanted us to build a simple proof of concept before they invest in this further. To create this proof of concept, a previous team used a mock API which return dummy todo data to power the frontend and showcase the user experience. 
 
 The great news is that our clients loved the proof of concept and want to build out the full application! Your team is now responsible for building out the application by putting in a real API and to build out a few additional features detailed below. 
 
