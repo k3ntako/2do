@@ -3,12 +3,12 @@ Our clients have asked us to build a new To Do application but wanted us to buil
 
 The great news is that our clients loved the proof of concept and want to build out the full application! Your team is now responsible for building out the application by swapping in a real **Java Spring API** and to build out a few additional features in **React/TypeScript** detailed below. 
 
-### The deadline and final demo is Friday, April 9th.
+> :round_pushpin: **Kentaro+Matt's deadline and final demo is Friday, April 9th.**
+
 
 ## Quick Start
 
-Create a `.env.local` file and add the MOCK api key:
-*Contact Francesca for the key
+Create a `.env.local` file and add the MOCK api key:\*See "to-do-app secrets" note in 8L 1Password Apprenticeship vault
 ```
 REACT_APP_API_KEY=XXXX_API_KEY_HERE
 ```
@@ -37,12 +37,12 @@ Todos in the list should be sorted in the following order:
 ## Process Guidelines
 - Your team is expected to flesh out the requirements and prioritize/scope features with the client in the IPM and throughout the week.
 - Stories are available in a centralized location (Trello Board or Github Project Board)
-- We will have weekly IPMs on Fridays, where we’ll go over stories for the week and your team will present the work you have completed. Demo'd features should have edge conditions considered and be well tested. For example, if during a demo you are asked to show the feature beyond the happy path, the application shoud not crash.
+- We will have weekly IPMs on Fridays, where we’ll go over stories for the week and your team will present the work you have completed. Demoed features should have edge conditions considered and be well tested. For example, if during a demo you are asked to show the feature beyond the happy path, the application should not crash.
 - Your team is expected to communicate early and often to resolve any questions or bring up timeline delays. As a hint, we should not be hearing that a feature is not done during a demo. 
 - When applicable, new work should have a formal PR process with at least 1 other approval from each other before merging. Setup the PRs with adequate detail like: what it is, why its being worked on, steps for reviewers to replicate the process for validation, screenshots and videos if frontend work. 
 - Mentors will be reviewing code and giving feedback as you work on the project (as opposed to just reviewing it as a whole at the due date). Please add all mentors as peer reviewers. Feel free to merge in work after 24 hours if there is no feedback; mentors may add feedback async and it can be resolved in the next PR. 
 
-**Note to the apprentice:** Remember, no crafter is an island. Just like a real client experience, you are encouraged to seek feedback & advice (yes, including the mentor team and company wide slack channels). Please clarify anything that is unclear in the requirements.
+> :musical_note: **Note to the apprentice:** Remember, no crafter is an island. Just like a real client experience, you are encouraged to seek feedback & advice (yes, including the mentor team and company wide slack channels). Please clarify anything that is unclear in the requirements.
 
 ## Screenshots
 
