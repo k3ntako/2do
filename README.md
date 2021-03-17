@@ -27,9 +27,10 @@ Todos in the list should be sorted in the following order:
 - Completed items at the bottom
 
 ## New Features & Things to Consider
-- Now that we have a proof of concent, let's replace the existing mock API with a new API so that we can have persisted data. The new API should match the mock API's data contract. The client has requested a **Java Spring API**. 
+- Now that we have a proof of concept, let's replace the existing mock API with a new API so that we can have persisted data. The new API should match the mock API's data contract. The client has requested a **Java Spring API**. 
 - As you transition to a new API, how do we ensure we don't break the existing functionality?
-- Our clients want to deploy this application and see all future demos on a deployed version! Our clients also want to see any new changes deployed in a staging environment before it goes into production. 
+- Our clients want to deploy this application and see all future demos on a deployed version! 
+- Our clients also want to see any new changes deployed in a staging environment before it goes into production. 
 - A user should be able to add new todos. A note, our clients don't need full authentication - its ok to ask a user for their name, and associate the todo with the name
 
 ## Process Guidelines
