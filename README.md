@@ -3,7 +3,7 @@ Our clients have asked us to build a new To Do application but wanted us to buil
 
 The great news is that our clients loved the proof of concept and want to build out the full application! Your team is now responsible for building out the application by swapping in a real **Java Spring API** and to build out a few additional features in **React/TypeScript** detailed below. 
 
-The deadline and final demo is Friday, April 9th. 
+### The deadline and final demo is Friday, April 9th.
 
 ## Quick Start
 
