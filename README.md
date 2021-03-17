@@ -26,7 +26,7 @@ Todos in the list should be sorted in the following order:
 - Sort by due date (due soonest at the top)
 - Completed items at the bottom
 
-## New Features & Things to Consider
+## New Requested Features & Things to Consider
 - Now that we have a proof of concept, let's replace the existing mock API with a new API so that we can have persisted data. The new API should match the mock API's data contract. The client has requested a **Java Spring API**. 
 - As you transition to a new API, how do we ensure we don't break the existing functionality?
 - Our clients want to deploy this application and see all future demos on a deployed version! 
@@ -34,9 +34,10 @@ Todos in the list should be sorted in the following order:
 - A user should be able to add new todos. A note, our clients don't need full authentication - its ok to ask a user for their name, and associate the todo with the name
 
 ## Process Guidelines
-- Your team will flesh out the new stories and prioritize them
+- Your team is expected to flesh out the requirements and prioritize/scope features with the client in the IPM and throughout the week.
 - Stories are available in a centralized location (Trello Board or Github Project Board)
-- We will have weekly IPMs on Fridays, where we’ll go over stories for the week and your team will present the work you have completed.
+- We will have weekly IPMs on Fridays, where we’ll go over stories for the week and your team will present the work you have completed. Demo'd features should have edge conditions considered and be well tested. For example, if during a demo you are asked to show the feature beyond the happy path, the application shoud not crash.
+- Your team is expected to communicate early and often to resolve any questions or bring up timeline delays. As a hint, we should not be hearing that a feature is not done during a demo. 
 
 **Note to the apprentice:** Remember, no crafter is an island. Just like a real client experience, you are encouraged to seek feedback & advice (yes, including the mentor team and company wide slack channels). Please clarify anything that is unclear in the requirements.
 
