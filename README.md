@@ -1,7 +1,7 @@
 # To Do App
 Our clients have asked us to build a new To Do application but wanted us to build a simple proof of concept before they invest in this further. To create this proof of concept, a previous team used a mock API which return dummy todo data to power the frontend and showcase the user experience. 
 
-The great news is that our clients loved the proof of concept and want to build out the full application! Your team is now responsible for building out the application by putting in a real API and to build out a few additional features detailed below. 
+The great news is that our clients loved the proof of concept and want to build out the full application! Your team is now responsible for building out the application by swapping in a real **Java Spring API** and to build out a few additional features in **React/TypeScript** detailed below. 
 
 The deadline and final demo is Friday, April 9th. 
 
@@ -31,6 +31,13 @@ Todos in the list should be sorted in the following order:
 - As you transition to a new API, how do we ensure we don't break the existing functionality?
 - Our clients want to deploy this application and see all future demos on a deployed version! Our clients also want to see any new changes deployed in a staging environment before it goes into production. 
 - A user should be able to add new todos. A note, our clients don't need full authentication - its ok to ask a user for their name, and associate the todo with the name
+
+## Process Guidelines
+- Your team will flesh out the new stories and prioritize them
+- Stories are available in a centralized location (Trello Board or Github Project Board)
+- We will have weekly IPMs on Fridays, where we’ll go over stories for the week and your team will present the work you have completed.
+
+**Note to the apprentice:** Remember, no crafter is an island. Just like a real client experience, you are encouraged to seek feedback & advice (yes, including the mentor team and company wide slack channels). Please clarify anything that is unclear in the requirements.
 
 ## Screenshots
 
