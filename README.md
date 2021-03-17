@@ -28,7 +28,7 @@ Todos in the list should be sorted in the following order:
 
 ## New Requested Features & Things to Consider
 1. As you transition to a new API, how do we ensure we don't break the existing functionality? Hint - Please use Cypress for end-to-end tests.
-2. Our clients want to deploy this application and see all future demos on a deployed version! Hint - look at Github Actions for CI/CD; we don't care where it is deployed so feel free to pick the easiest to set up and is free. 
+2. Our clients want to deploy this application and see all future demos on a deployed version! Hint - look at Github Actions for CI/CD; deployment should be in AWS. Check out Create-React-App deployment pages as we use CRA as a bootstrap.
 3. Our clients also want to see any new changes deployed in a staging environment before it goes into production. 
 4. Let's replace the existing mock API with a new API so that we can have persisted data. The new API should initially match the mock API's data contract. The client has requested a **Java Spring API**. 
 5. A user should be able to add new todos. Note - our clients don't need authentication - its ok to ask a user for their name, and associate the todo with the name somehow
@@ -39,7 +39,8 @@ Todos in the list should be sorted in the following order:
 - Stories are available in a centralized location (Trello Board or Github Project Board)
 - We will have weekly IPMs on Fridays, where we’ll go over stories for the week and your team will present the work you have completed. Demo'd features should have edge conditions considered and be well tested. For example, if during a demo you are asked to show the feature beyond the happy path, the application shoud not crash.
 - Your team is expected to communicate early and often to resolve any questions or bring up timeline delays. As a hint, we should not be hearing that a feature is not done during a demo. 
-- When applicable, new work should have a PR process. Mentors will be reviewing code and giving feedback as you work on the project (as opposed to just reviewing it as a whole at the due date). Please add all mentors as peer reviewers. Feel free to merge in work after 24 hours if there is no feedback; mentors may add feedback async and it can be resolved in the next PR. 
+- When applicable, new work should have a formal PR process with at least 1 other approval from each other before merging. Setup the PRs with adequate detail like: what it is, why its being worked on, steps for reviewers to replicate the process for validation, screenshots and videos if frontend work. 
+- Mentors will be reviewing code and giving feedback as you work on the project (as opposed to just reviewing it as a whole at the due date). Please add all mentors as peer reviewers. Feel free to merge in work after 24 hours if there is no feedback; mentors may add feedback async and it can be resolved in the next PR. 
 
 **Note to the apprentice:** Remember, no crafter is an island. Just like a real client experience, you are encouraged to seek feedback & advice (yes, including the mentor team and company wide slack channels). Please clarify anything that is unclear in the requirements.
 
