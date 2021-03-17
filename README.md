@@ -32,6 +32,7 @@ Todos in the list should be sorted in the following order:
 3. Our clients also want to see any new changes deployed in a staging environment before it goes into production. 
 4. Let's replace the existing mock API with a new API so that we can have persisted data. The new API should initially match the mock API's data contract. The client has requested a **Java Spring API**. 
 5. A user should be able to add new todos. Note - our clients don't need authentication - its ok to ask a user for their name, and associate the todo with the name somehow
+6. Given a link to the todo session, a different user on another computer or browser should be able to make updates and add todos. These changes should be reflected for everyone with that todo session open. For now, we can assume there is 1 global todo session for everyone.
 
 ## Process Guidelines
 - Your team is expected to flesh out the requirements and prioritize/scope features with the client in the IPM and throughout the week.
