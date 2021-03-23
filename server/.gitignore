@@ -1,8 +1,4 @@
-node_modules
-build
-.env*
-
-### Spring ###
+HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
