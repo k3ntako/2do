@@ -2,6 +2,7 @@ node_modules
 build
 bin
 .env*
+client/cypress/integration/examples
 
 ### Spring ###
 target/
