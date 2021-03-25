@@ -2,7 +2,7 @@
 
 describe("Homepage", () => {
   describe("user loads homepage", () => {
-    it("displays a list of todos", () => {
+    it("should display a list of todos", () => {
       cy.visit("/");
 
       cy.get(".card-header h1").contains("to do", { matchCase: false });
