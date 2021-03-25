@@ -11,7 +11,7 @@ describe("Homepage", () => {
       .should("have.length.above", 0);
   });
 
-  context("click on a not completed todo checkbox", () => {
+  context("click on an incomplete todo checkbox", () => {
     it("should mark it as complete", () => {
       cy.visit("/");
 
@@ -29,7 +29,7 @@ describe("Homepage", () => {
     });
   });
 
-  context("click on a not completed todo checkbox", function () {
+  context("click on a completed todo checkbox", function () {
     it("should mark it as complete", () => {
       cy.visit("/");
 
@@ -46,6 +46,29 @@ describe("Homepage", () => {
 
       // Make sure it's marked as incomplete
       cy.get("@todo").find("input").should("not.be.checked");
+    });
+  });
+
+  context("Todo API endpoint returns 404", function () {
+    beforeEach(() => {
+      cy.fixture("todo/GET-404").then((body) => {
+        cy.intercept("GET", /\.mock.pstmn.io\/get/, {
+          statusCode: 404,
+          body,
+        });
+      });
+
+      cy.visit("/");
+    });
+
+    it("should display error", () => {
+      cy.get(".error").should("contain", "Something went wrong!", {
+        matchCase: false,
+      });
+    });
+
+    it("should not display todos", () => {
+      cy.get("div.todo-container").should("not.exist");
     });
   });
 });

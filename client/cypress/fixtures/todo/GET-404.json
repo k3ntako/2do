@@ -1,0 +1,6 @@
+{
+  "error": {
+    "name": "mockNotFoundError",
+    "message": "Please refresh and try again."
+  }
+}
