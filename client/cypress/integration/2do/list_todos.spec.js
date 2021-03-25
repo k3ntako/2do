@@ -1,17 +1,19 @@
 /// <reference types="cypress" />
 
 describe("Homepage", () => {
-  it("loads the todo list", () => {
-    cy.visit("/");
+  describe("user loads homepage", () => {
+    it("displays a list of todos", () => {
+      cy.visit("/");
 
-    cy.get(".card-header h1").contains("to do", { matchCase: false });
+      cy.get(".card-header h1").contains("to do", { matchCase: false });
 
-    cy.get("#card-content")
-      .children("div.todo-container")
-      .should("have.length.above", 0);
+      cy.get("#card-content")
+        .children("div.todo-container")
+        .should("have.length.above", 0);
+    });
   });
 
-  context("click on an incomplete todo checkbox", () => {
+  describe("user clicks on an incomplete todo checkbox", () => {
     it("should mark it as complete", () => {
       cy.visit("/");
 
@@ -29,7 +31,7 @@ describe("Homepage", () => {
     });
   });
 
-  context("click on a completed todo checkbox", function () {
+  describe("user clicks on a completed todo checkbox", function () {
     it("should mark it as complete", () => {
       cy.visit("/");
 
@@ -49,7 +51,7 @@ describe("Homepage", () => {
     });
   });
 
-  context("Todo API endpoint returns 404", function () {
+  describe("API endpoint returns 404", function () {
     beforeEach(() => {
       cy.fixture("todo/GET-404").then((body) => {
         cy.intercept("GET", /\.mock.pstmn.io\/get/, {
