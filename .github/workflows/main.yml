@@ -6,7 +6,11 @@ on:
       - main
       - production
       - staging
-    pull_request:
+  pull_request:
+    branches:
+      - main
+      - production
+      - staging
 
 jobs:
   cypress-run:
