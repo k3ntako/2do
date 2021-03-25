@@ -31,7 +31,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:e2e": "yarn start & cypress open",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "aws s3 sync build/ s3://mattkentaro-frontend-dev"
   },
   "eslintConfig": {
     "extends": [
