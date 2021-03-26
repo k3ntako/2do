@@ -36,7 +36,29 @@ Clone the repo and follow the steps below.
 [Frontend(production)](http://mattkentaro-frontend-prod.s3-website-us-west-1.amazonaws.com/)  
 [Spring API(staging)](http://todobackend-staging.eba-pinzma4i.us-west-1.elasticbeanstalk.com/health-check)
 
+## Running Tests
 
+### Frontend Tests
+
+Frontend tests will test the utility functions.
+
+1. In your command-line interface go to the `client` directory within the project.
+2. Make sure you have the dependencies installed and the API key from the Getting Started section above.
+3. Run the tests:
+   ```
+   npm test
+   ```
+
+### End to End Tests
+
+End to end tests will start the React server and open a Cypress UI where you can run tests.
+
+1. In your command-line interface go to the `client` directory within the project.
+2. Make sure you have the dependencies installed and the API key from the Getting Started section above.
+3. Run the tests:
+   ```
+   npm run test:e2e
+   ```
 
 ---
 ## Assuming AWS IAM Roles
