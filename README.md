@@ -6,12 +6,12 @@ Clone the repo and follow the steps below.
 
 ### Frontend
 
-1. In the root directory of this project, create a file with the name `.env.local`.
+1. In your command-line interface go to the `client` directory within the project.
+2. Create a file with the name `.env.local`.
    - Add the API key for mock server. It should look like:
    ```
    REACT_APP_API_KEY=XXXX_API_KEY_HERE
    ```
-2. In Terminal, go to the `client` directory within the project.
 3. Install dependencies:
    ```
    npm i
@@ -24,7 +24,7 @@ Clone the repo and follow the steps below.
 
 ### Backend
 
-1. In Terminal, go to the `server` directory within the project.
+1. In your command-line interface go to the `server` directory within the project.
 2. Build and start the program:
    ```
    ./mvnw spring-boot:run
@@ -35,6 +35,8 @@ Clone the repo and follow the steps below.
 [Frontend(staging)](http://mattkentaro-frontend-dev.s3-website-us-west-1.amazonaws.com/)  
 [Frontend(production)](http://mattkentaro-frontend-prod.s3-website-us-west-1.amazonaws.com/)  
 [Spring API(staging)](http://todobackend-staging.eba-pinzma4i.us-west-1.elasticbeanstalk.com/health-check)
+
+
 
 ---
 ## Assuming AWS IAM Roles
