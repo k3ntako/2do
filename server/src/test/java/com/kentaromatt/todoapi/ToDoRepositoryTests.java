@@ -14,7 +14,7 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
-@AutoConfigureTestDatabase
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ToDoRepositoryTests {
     
     @Autowired
@@ -29,6 +29,15 @@ public class ToDoRepositoryTests {
         
         List<ToDo> todos = repository.findByDescription("Walk dog");
         assertEquals(1, todos.size());
+    }
 
+    @Test
+    public void testGetAllToDos() {
+        entityManager.persist(new ToDo("Feed dog"));
+        entityManager.persist(new ToDo("Walk dog"));
+        entityManager.persist(new ToDo("Feed cat"));
+
+        List<ToDo> todos = repository.findAll();
+        assertEquals(3, todos.size());
     }
 }
