@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.Test;
 
 public class ToDoTests {
@@ -26,5 +28,11 @@ public class ToDoTests {
     public void testIsCompleteInitializesFalse() {
         ToDo todo = new ToDo("Walk dog");
         assertFalse(todo.getIsComplete());
+    }
+
+    public void testToDoCanHaveDueDate() {
+        LocalDate date = LocalDate.now();
+        ToDo todo = new ToDo("Walk dog", date);
+        assertEquals(date, todo.getDueDate());
     }
 }
