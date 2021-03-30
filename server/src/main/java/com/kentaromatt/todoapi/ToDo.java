@@ -13,9 +13,8 @@ public class ToDo {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private UUID id = UUID.randomUUID();
     private String description;
-    private Boolean is_complete = false;
-    private LocalDate due_date;
-    private String user_name;
+    private Boolean isComplete = false;
+    private LocalDate dueDate;
 
     protected ToDo() {}
 
@@ -23,23 +22,16 @@ public class ToDo {
         this.description = description;
     }
 
-    public ToDo(String description, LocalDate due_date, String user_name) {
+    public ToDo(String description, LocalDate dueDate) {
         this.description = description;
-        this.due_date = due_date;
-        this.user_name = user_name;
+        this.dueDate = dueDate;
     }
 
     @Override
     public String toString() {
         return String.format(
-                "ToDo[id='%s', description='%s', is_complete='%s', due_date='%s', user_name='%s']",
-                id, description, is_complete, due_date, user_name);
-    }
-
-    public ToDo(String description, LocalDate dueDate) {
-        this.description = description;
-        this.is_complete = false;
-        this.due_date = dueDate;
+                "ToDo[id='%s', description='%s', isComplete='%s', dueDate='%s']",
+                id, description, isComplete, dueDate);
     }
 
     public UUID getId() {
@@ -51,14 +43,10 @@ public class ToDo {
     }
 
     public Boolean getIsComplete() {
-        return is_complete;
+        return isComplete;
     }
 
     public LocalDate getDueDate() {
-        return due_date;
-    }
-
-    public String getUserName() {
-        return user_name;
+        return dueDate;
     }
 }
