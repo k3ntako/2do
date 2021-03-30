@@ -27,13 +27,6 @@ public class ToDo {
         this.dueDate = dueDate;
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "ToDo[id='%s', description='%s', isComplete='%s', dueDate='%s']",
-                id, description, isComplete, dueDate);
-    }
-
     public UUID getId() {
         return id;
     }
