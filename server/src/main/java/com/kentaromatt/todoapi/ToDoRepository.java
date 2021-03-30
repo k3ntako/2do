@@ -8,6 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface ToDoRepository extends CrudRepository<ToDo, UUID> {
     ToDo findById(String id);
-    List<ToDo> findByDescription(String description);
     List<ToDo> findAll();
 }

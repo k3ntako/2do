@@ -20,14 +20,6 @@ public class ToDoRepositoryTests {
     private ToDoRepository repository;
 
     @Test
-    public void testFindByDescription() {
-        repository.save(new ToDo("Walk dog"));
-
-        List<ToDo> todos = repository.findByDescription("Walk dog");
-        assertEquals(1, todos.size());
-    }
-
-    @Test
     public void testGetAllToDos() {
         repository.save(new ToDo("Feed dog"));
         repository.save(new ToDo("Walk dog"));
