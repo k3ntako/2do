@@ -19,6 +19,10 @@ public class ToDo {
 
     protected ToDo() {}
 
+    public ToDo(String description) {
+        this.description = description;
+    }
+
     public ToDo(String description, LocalDate due_date, String user_name) {
         this.description = description;
         this.due_date = due_date;

@@ -14,22 +14,26 @@ public class ToDoTests {
         ToDo todo = new ToDo("Walk dog");
         assertEquals("Walk dog", todo.getDescription());
     }
-    
+
+    @Test
     public void testToDoHasID() {
         ToDo todo = new ToDo("Walk dog");
         assertNotNull(todo.getId());
     }
 
+    @Test
     public void testToDoHasIsComplete() {
         ToDo todo = new ToDo("Walk dog");
         assertNotNull(todo.getIsComplete());
     }
 
+    @Test
     public void testIsCompleteInitializesFalse() {
         ToDo todo = new ToDo("Walk dog");
         assertFalse(todo.getIsComplete());
     }
 
+    @Test
     public void testToDoCanHaveDueDate() {
         LocalDate date = LocalDate.now();
         ToDo todo = new ToDo("Walk dog", date);
