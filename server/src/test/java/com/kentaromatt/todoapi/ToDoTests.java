@@ -42,6 +42,24 @@ public class ToDoTests {
     }
 
     @Test
+    public void testSetIsComplete() {
+        ToDo todo = new ToDo("Feed cat");
+        assertFalse(todo.getIsComplete());
+
+        todo.setIsComplete(true);
+        assertTrue(todo.getIsComplete());
+
+        todo.setIsComplete(true);
+        assertTrue(todo.getIsComplete());
+
+        todo.setIsComplete(false);
+        assertFalse(todo.getIsComplete());
+
+        todo.setIsComplete(false);
+        assertFalse(todo.getIsComplete());
+    }
+
+    @Test
     public void testToggleIsComplete() {
         ToDo todo = new ToDo("Feed cat");
         assertFalse(todo.getIsComplete());

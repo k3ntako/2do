@@ -40,6 +40,8 @@ public class ToDo {
         return dueDate;
     }
 
+    public void setIsComplete(Boolean isComplete) { this.isComplete = isComplete; }
+
     public void toggleIsComplete() {
         isComplete = !isComplete;
     }
