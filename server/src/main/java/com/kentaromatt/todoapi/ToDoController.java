@@ -1,11 +1,11 @@
 package com.kentaromatt.todoapi;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,15 +22,17 @@ public class ToDoController {
     }
 
     @PatchMapping(path = "/todo/{id}")
-    public @ResponseBody String updateToDo(@PathVariable String id, @RequestBody (required=false) CompletedReqBody completedReqBody) {
+    public @ResponseBody Map<String, String> updateToDo(@PathVariable String id, @RequestBody (required=false) CompletedReqBody completedReqBody) {
         ToDo todo = repository.findById(UUID.fromString(id)).get();
         todo.setIsComplete(completedReqBody.isComplete);
         repository.save(todo);
 
-        return "{status: 'success'}";
+        return new HashMap<>(){{
+            put("status", "success");
+        }};
     }
 
-    static public class CompletedReqBody{
+    static private class CompletedReqBody{
         private Boolean isComplete;
 
         public Boolean getIsComplete(){ return isComplete; }
