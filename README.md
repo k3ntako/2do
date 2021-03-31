@@ -24,12 +24,22 @@ Clone the repo and follow the steps below.
 
 ### Backend
 
-1. In your command-line interface go to the `server` directory within the project.
-2. Build and start the program:
+1. Install [Maven](https://maven.apache.org/what-is-maven.html).
+2. Install [PostgreSQL](https://www.postgresql.org/download/).
+    - Mac users: we recommend [Postgres.app](https://postgresapp.com/) for most users.
+3. Create `todo` database locally using your preferred method. Example:
+    1. Install [psql](https://blog.timescale.com/tutorials/how-to-install-psql-on-mac-ubuntu-debian-windows/).
+    2. Enter `psql` CLI by running:
+        ```
+        $ psql
+        ```
+    3. Within `psql` run: `CREATE DATABASE todo;`.
+4. In your command-line interface go to the `server` directory within the project.
+5. Build and start the program:
    ```
    ./mvnw spring-boot:run
    ```
-3. Once the server has started, visit `locahost:8080/health-check` in a browser to view status of the server.
+6. Once the server has started, visit `locahost:8080/health-check` in a browser to view status of the server.
 
 ## Deployed Versions
 [Frontend(staging)](http://mattkentaro-frontend-dev.s3-website-us-west-1.amazonaws.com/)  
