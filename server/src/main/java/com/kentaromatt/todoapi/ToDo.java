@@ -39,4 +39,8 @@ public class ToDo {
     public LocalDate getDueDate() {
         return dueDate;
     }
+
+    public void toggleIsComplete() {
+        isComplete = !isComplete;
+    }
 }
