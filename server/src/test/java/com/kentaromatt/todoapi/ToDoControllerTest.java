@@ -6,11 +6,13 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -90,6 +92,29 @@ public class ToDoControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/api/todos"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0]", hasKey("dueDate")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].dueDate", equalTo(dateStr)));
+    }
+
+    @Test
+    public void testUpdateToDosReturnsJson() throws Exception {
+        ToDo todo = new ToDo("Feed cat");
+        repository.save(todo);
+        UUID id = todo.getId();
+
+        when(repository.findById(id)).thenReturn(java.util.Optional.of(todo));
+
+        Object requestBodyObject = new Object() {
+            public final Boolean isComplete = true;
+        };
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
+
+        mvc.perform(
+                MockMvcRequestBuilders.patch("/api/todo/{%s}", id.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBodyJson)
+        )
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasKey("status")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.status", equalTo("success")));
     }
 
     @Test
