@@ -1,15 +1,13 @@
 package com.kentaromatt.todoapi;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping(path = "/api/")
@@ -24,10 +22,18 @@ public class ToDoController {
     }
 
     @PatchMapping(path = "/todo/{id}")
-    public @ResponseBody String updateToDo(@PathVariable String id) {
+    public @ResponseBody String updateToDo(@PathVariable String id, @RequestBody (required=false) CompletedReqBody completedReqBody) {
         ToDo todo = repository.findById(UUID.fromString(id)).get();
-        todo.toggleIsComplete();
+        todo.setIsComplete(completedReqBody.isComplete);
         repository.save(todo);
+
         return "{status: 'success'}";
+    }
+
+    static public class CompletedReqBody{
+        private Boolean isComplete;
+
+        public Boolean getIsComplete(){ return isComplete; }
+        public void setIsComplete(Boolean isComplete){ this.isComplete = isComplete; }
     }
 }

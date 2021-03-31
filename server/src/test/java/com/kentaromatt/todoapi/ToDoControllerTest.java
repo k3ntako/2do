@@ -118,17 +118,27 @@ public class ToDoControllerTest {
     }
 
     @Test
-    public void testUpdateToDosSetsIsCompleteToTrue() throws Exception {
+    public void testUpdateSetIncompleteToComplete() throws Exception {
         ToDo todo = new ToDo("Feed cat");
         repository.save(todo);
 
-        // Make sure todo.getIsComplete is false by default
+        // Make sure todo.getIsComplete is originally false
         assertFalse(todo.getIsComplete());
 
         UUID id = todo.getId();
         when(repository.findById(id)).thenReturn(java.util.Optional.of(todo));
 
-        mvc.perform(MockMvcRequestBuilders.patch("/api/todo/{%s}", id.toString()));
+        Object requestBodyObject = new Object() {
+            public final Boolean isComplete = true;
+        };
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
+
+        mvc.perform(
+                MockMvcRequestBuilders.patch("/api/todo/{%s}", id.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBodyJson)
+        );
 
         ToDo foundToDo = repository.findById(id).orElse(null);
         assertNotNull(foundToDo);
@@ -136,18 +146,85 @@ public class ToDoControllerTest {
     }
 
     @Test
-    public void testUpdateToDosSetsIsCompleteToFalse() throws Exception {
+    public void testUpdateSetsCompleteToIncomplete() throws Exception {
         ToDo todo = new ToDo("Feed cat");
-        todo.toggleIsComplete();
+        todo.setIsComplete(true);
         repository.save(todo);
 
-        // Make sure todo.getIsComplete is true by default
+        // Make sure todo.getIsComplete is originally true
         assertTrue(todo.getIsComplete());
 
         UUID id = todo.getId();
         when(repository.findById(id)).thenReturn(java.util.Optional.of(todo));
 
-        mvc.perform(MockMvcRequestBuilders.patch("/api/todo/{%s}", id.toString()));
+        Object requestBodyObject = new Object() {
+            public final Boolean isComplete = false;
+        };
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
+
+        mvc.perform(
+                MockMvcRequestBuilders.patch("/api/todo/{%s}", id.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBodyJson)
+        );
+
+        ToDo foundToDo = repository.findById(id).orElse(null);
+        assertNotNull(foundToDo);
+        assertFalse(foundToDo.getIsComplete());
+    }
+
+    @Test
+    public void testUpdateSetsCompletedToCompleted() throws Exception {
+        ToDo todo = new ToDo("Feed cat");
+        todo.setIsComplete(true);
+        repository.save(todo);
+
+        // Make sure todo.getIsComplete is originally true
+        assertTrue(todo.getIsComplete());
+
+        UUID id = todo.getId();
+        when(repository.findById(id)).thenReturn(java.util.Optional.of(todo));
+
+        Object requestBodyObject = new Object() {
+            public final Boolean isComplete = true;
+        };
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
+
+        mvc.perform(
+                MockMvcRequestBuilders.patch("/api/todo/{%s}", id.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBodyJson)
+        );
+
+        ToDo foundToDo = repository.findById(id).orElse(null);
+        assertNotNull(foundToDo);
+        assertTrue(foundToDo.getIsComplete());
+    }
+
+    @Test
+    public void testUpdateSetsIncompleteToIncomplete() throws Exception {
+        ToDo todo = new ToDo("Feed cat");
+        repository.save(todo);
+
+        // Make sure todo.getIsComplete is originally false
+        assertFalse(todo.getIsComplete());
+
+        UUID id = todo.getId();
+        when(repository.findById(id)).thenReturn(java.util.Optional.of(todo));
+
+        Object requestBodyObject = new Object() {
+            public final Boolean isComplete = false;
+        };
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
+
+        mvc.perform(
+                MockMvcRequestBuilders.patch("/api/todo/{%s}", id.toString())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestBodyJson)
+        );
 
         ToDo foundToDo = repository.findById(id).orElse(null);
         assertNotNull(foundToDo);
