@@ -3,6 +3,7 @@ package com.kentaromatt.todoapi;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 
@@ -38,5 +39,14 @@ public class ToDoTests {
         LocalDate date = LocalDate.now();
         ToDo todo = new ToDo("Walk dog", date);
         assertEquals(date, todo.getDueDate());
+    }
+
+    @Test
+    public void testToggleIsComplete() {
+        ToDo todo = new ToDo("Feed cat");
+        assertFalse(todo.getIsComplete());
+
+        todo.toggleIsComplete();
+        assertTrue(todo.getIsComplete());
     }
 }
