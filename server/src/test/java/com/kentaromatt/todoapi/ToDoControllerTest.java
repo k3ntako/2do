@@ -2,6 +2,7 @@ package com.kentaromatt.todoapi;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -71,6 +73,20 @@ public class ToDoControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/api/todos")
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(MockMvcResultMatchers.jsonPath("$[0]", hasKey("isComplete")));
+    }
+
+    @Test
+    public void testUpdateToDosTogglesIsComplete() throws Exception {
+        ToDo todo = new ToDo("Feed cat");
+        repository.save(todo);
+        UUID id = todo.getId();
+
+        when(repository.findById(id).get()).thenReturn(todo);
+
+        mvc.perform(MockMvcRequestBuilders.patch("/api/todos/{%s}", id));
+        
+        ToDo foundToDo = repository.findById(id).get();
+        assertTrue(foundToDo.getIsComplete());
     }
     
 }
