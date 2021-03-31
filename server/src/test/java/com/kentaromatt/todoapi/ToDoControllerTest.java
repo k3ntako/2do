@@ -1,5 +1,7 @@
 package com.kentaromatt.todoapi;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -28,8 +30,8 @@ public class ToDoControllerTest {
     
     @Test
     public void testGetToDosReturnsStatusOk() throws Exception {
- 
-        mvc.perform(MockMvcRequestBuilders.get("/api/todos").contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk());
+        mvc.perform(MockMvcRequestBuilders.get("/api/todos").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
@@ -41,7 +43,8 @@ public class ToDoControllerTest {
         when(repository.findAll()).thenReturn(allToDos);
 
         repository.save(todo);
-        mvc.perform(MockMvcRequestBuilders.get("/api/todos").contentType(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
+        mvc.perform(MockMvcRequestBuilders.get("/api/todos").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)));
     }
 
     @Test
@@ -68,9 +71,24 @@ public class ToDoControllerTest {
         when(repository.findAll()).thenReturn(allToDos);
 
         repository.save(todo);
-        mvc.perform(MockMvcRequestBuilders.get("/api/todos")
-            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.jsonPath("$[0]", hasKey("isComplete")));
+        mvc.perform(MockMvcRequestBuilders.get("/api/todos").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0]", hasKey("isComplete")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].isComplete", isA(Boolean.class)));
     }
-    
+
+    @Test
+    public void testGetToDosReturnsListOfTodosWithDueDate() throws Exception {
+        LocalDate date = LocalDate.of(2021, 11, 29);
+        String dateStr = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        ToDo todo = new ToDo("walk dog", date);
+        ToDo todo2 = new ToDo("pick up dog", date);
+        List<ToDo> allToDos = Arrays.asList(todo, todo2);
+
+        when(repository.findAll()).thenReturn(allToDos);
+
+        repository.save(todo);
+        mvc.perform(MockMvcRequestBuilders.get("/api/todos").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0]", hasKey("dueDate")))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].dueDate", equalTo(dateStr)));
+    }
 }
