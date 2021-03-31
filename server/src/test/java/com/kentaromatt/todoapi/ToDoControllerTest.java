@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,6 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
@@ -90,5 +92,23 @@ public class ToDoControllerTest {
         mvc.perform(MockMvcRequestBuilders.get("/api/todos").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0]", hasKey("dueDate")))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].dueDate", equalTo(dateStr)));
+    }
+
+    @Test
+    public void testUpdateToDosTogglesIsComplete() throws Exception {
+        ToDo todo = new ToDo("Feed cat");
+        repository.save(todo);
+
+        // Make sure todo.getIsComplete is false by default
+        assertFalse(todo.getIsComplete());
+
+        UUID id = todo.getId();
+        when(repository.findById(id)).thenReturn(java.util.Optional.of(todo));
+
+        mvc.perform(MockMvcRequestBuilders.patch("/api/todo/{%s}", id.toString()));
+
+        ToDo foundToDo = repository.findById(id).orElse(null);
+        assertNotNull(foundToDo);
+        assertTrue(foundToDo.getIsComplete());
     }
 }
