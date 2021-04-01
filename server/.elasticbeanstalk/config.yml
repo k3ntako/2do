@@ -1,6 +1,6 @@
 branch-defaults:
   default:
-    environment: ToDoBackend-staging
+    environment: ToDoBackend-dev
 deploy:
   artifact: target/todoapi-0.0.1-SNAPSHOT.jar
 global:
