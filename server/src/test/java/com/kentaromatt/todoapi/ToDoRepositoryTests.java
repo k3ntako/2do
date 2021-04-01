@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,15 +18,31 @@ import java.util.List;
 public class ToDoRepositoryTests {
 
     @Autowired
+    private TestEntityManager entityManager;
+
+    @Autowired
     private ToDoRepository repository;
 
     @Test
     public void testGetAllToDos() {
-        repository.save(new ToDo("Feed dog"));
-        repository.save(new ToDo("Walk dog"));
-        repository.save(new ToDo("Feed cat"));
-
         List<ToDo> todos = repository.findAll();
-        assertEquals(3, todos.size());
+        int startingToDos = todos.size();
+        entityManager.flush();
+        entityManager.persist(new ToDo("Feed dog"));
+        entityManager.persist(new ToDo("Walk dog"));
+        entityManager.persist(new ToDo("Feed cat"));
+
+        todos = repository.findAll();
+        assertEquals(startingToDos + 3, todos.size());
+    }
+
+    @Test
+    public void testGetToDoById() {
+        ToDo todo = new ToDo("feed dog");
+        entityManager.persist(todo);
+
+        ToDo foundToDo = repository.findById(todo.getId()).get();
+        
+        assertEquals(todo.getId(), foundToDo.getId());
     }
 }
