@@ -37,7 +37,7 @@ Clone the repo and follow the steps below.
 4. In your command-line interface go to the `server` directory within the project.
 5. Build and start the program:
    ```
-   ./mvnw spring-boot:run -Dspring.profiles.active=staging
+   ./mvnw spring-boot:run
    ```
 6. Once the server has started, visit `locahost:8080/health-check` in a browser to view status of the server.
 
@@ -204,7 +204,7 @@ These are the steps we took to deploy the frontend React app to an S3 bucket, an
     ```
     eb deploy
     ```
-8. Create environment variable in Elastic Beanstalk environment to specify server port (Spring defaults to `8080` while EB uses `5000`
+8. Create environment variable in Elastic Beanstalk environment to specify the profile
     ```
-    eb setenv SERVER_PORT=5000
+    eb setenv spring_profiles_active=aws
     ```

@@ -38,4 +38,4 @@ jobs:
       with:
         java-version: 11
     - name: Build and test with Maven
-      run: ./mvnw spring-boot:build-image -Dspring.profiles.active=staging
+      run: ./mvnw spring-boot:build-image
