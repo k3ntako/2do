@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ToDoController.class)
@@ -229,5 +230,21 @@ public class ToDoControllerTest {
         ToDo foundToDo = repository.findById(id).orElse(null);
         assertNotNull(foundToDo);
         assertFalse(foundToDo.getIsComplete());
+    }
+
+    @Test
+    public void testToDoControllerAllowsCors() throws Exception {
+        LocalDate date = LocalDate.of(2021, 11, 29);
+        ToDo todo = new ToDo("walk dog", date);
+        List<ToDo> allToDos = Arrays.asList(todo);
+
+        when(repository.findAll()).thenReturn(allToDos);
+
+        repository.save(todo);
+        mvc.perform(MockMvcRequestBuilders.get("/api/todos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Access-Control-Request-Method", "GET")
+                .header("Origin", "http://localhost:3000"))
+                .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:3000"));
     }
 }

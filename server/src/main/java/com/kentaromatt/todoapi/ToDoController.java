@@ -22,7 +22,7 @@ public class ToDoController {
     }
 
     @PatchMapping(path = "/todo/{id}")
-    public @ResponseBody Map<String, String> updateToDo(@PathVariable String id, @RequestBody (required=false) CompletedReqBody completedReqBody) {
+    public @ResponseBody Map<String, String> updateToDo(@PathVariable String id, @RequestBody CompletedReqBody completedReqBody) {
         ToDo todo = repository.findById(UUID.fromString(id)).get();
         todo.setIsComplete(completedReqBody.isComplete);
         repository.save(todo);
