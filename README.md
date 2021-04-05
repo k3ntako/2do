@@ -204,7 +204,7 @@ These are the steps we took to deploy the frontend React app to an S3 bucket, an
     ```
     eb deploy
     ```
-8. Create environment variable in Elastic Beanstalk environment to specify server port (Spring defaults to `8080` while EB uses `5000`
+8. Create environment variable in Elastic Beanstalk environment to specify the profile
     ```
-    eb setenv SERVER_PORT=5000
+    eb setenv spring_profiles_active=aws
     ```
