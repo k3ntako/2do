@@ -4,8 +4,7 @@ interface IEnvConfig {
 
 interface IConfig {
   local: IEnvConfig;
-  test: IEnvConfig;
-  development: IEnvConfig;
+  staging: IEnvConfig;
   production: IEnvConfig;
 }
 
@@ -13,19 +12,16 @@ const config: IConfig = {
   local: {
     SERVER_URL: "http://localhost:8080",
   },
-  test: {
-    SERVER_URL: "http://localhost:8080",
-  },
-  development: {
+  staging: {
     SERVER_URL:
       "http://todobackend-staging.eba-pinzma4i.us-west-1.elasticbeanstalk.com",
   },
   production: {
-    SERVER_URL:
-      "",
+    SERVER_URL: "",
   },
 };
 
-const env: keyof IConfig = process.env.REACT_APP_ENV as keyof IConfig || "local";
+const env: keyof IConfig = (process.env.REACT_APP_ENV ||
+  "local") as keyof IConfig;
 
 export default config[env];
