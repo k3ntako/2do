@@ -1,35 +1,39 @@
-import React from 'react'
-import { Checkbox, Spinner } from '@chakra-ui/react'
-import { Todo } from '../data'
-import { isOverdue } from '../utils'
+import React from "react";
+import { Checkbox, Spinner } from "@chakra-ui/react";
+import { Todo } from "../data";
+import { isOverdue } from "../utils";
 
 export const TodoCollection = ({
   todos,
-  toggleTodoCompletion
+  toggleTodoCompletion,
 }: {
-  todos: Todo[]
+  todos: Todo[];
   toggleTodoCompletion: ({
     todoId,
     currentTodoStatus,
-    currentPosition
+    currentPosition,
   }: {
-    todoId: string
-    currentTodoStatus: boolean
-    currentPosition: number
-  }) => Promise<void>
+    todoId: string;
+    currentTodoStatus: boolean;
+    currentPosition: number;
+  }) => Promise<void>;
 }): JSX.Element => {
   if (todos.length === 0) {
     return (
       <div className="no-todos-container">
         <h2>Nothing to do here!</h2>
       </div>
-    )
+    );
   }
   return (
     <React.Fragment>
       {todos.map((todo, todoIdx) => {
-        const isCompleteClassName = todo.isComplete ? 'todo-container--complete' : ''
-        const isOverdueClassName = isOverdue(todo) ? 'todo-container--overdue' : ''
+        const isCompleteClassName = todo.isComplete
+          ? "todo-container--complete"
+          : "";
+        const isOverdueClassName = isOverdue(todo)
+          ? "todo-container--overdue"
+          : "";
         return (
           <div
             className={`todo-container ${isCompleteClassName} ${isOverdueClassName}`}
@@ -38,7 +42,7 @@ export const TodoCollection = ({
               toggleTodoCompletion({
                 todoId: todo.id,
                 currentTodoStatus: todo.isComplete,
-                currentPosition: todoIdx
+                currentPosition: todoIdx,
               })
             }
             role="checkbox"
@@ -59,12 +63,14 @@ export const TodoCollection = ({
               <p className="description">{todo.description}</p>
               <div className="tag-container">
                 {isOverdue(todo) && <div className="tag">OVERDUE</div>}
-                {todo.formattedDueDate && <div className="tag">{todo.formattedDueDate}</div>}
+                {todo.formattedDueDate && (
+                  <div className="tag">{todo.formattedDueDate}</div>
+                )}
               </div>
             </div>
           </div>
-        )
+        );
       })}
     </React.Fragment>
-  )
-}
+  );
+};
