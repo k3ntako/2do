@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './App.scss'
 import { ChakraProvider, Spinner } from '@chakra-ui/react'
-import { TodoCollection, ErrorAlert } from './components'
+import { TodoCollection, ErrorAlert, TodoForm } from './components'
 import { Todo, sortTodos, adaptTodo } from './data'
 import { getTodosRequest, updateTodoRequest } from './utils'
 
@@ -62,6 +62,15 @@ const App = () => {
       })
   }
 
+  const createTodo = async ({
+    description,
+    dueDate,
+  }: {
+    description: string;
+    dueDate?: string | undefined;
+  }): Promise<void> => {
+  }
+
   return (
     <ChakraProvider>
       <div className="app-container wrapper">
@@ -81,9 +90,14 @@ const App = () => {
               />
             </div>
           ) : (
-            <div id="card-content">
-              <TodoCollection todos={todos} toggleTodoCompletion={toggleTodoCompletion} />
-            </div>
+            <>
+              <div id="card-content">
+                <TodoCollection todos={todos} toggleTodoCompletion={toggleTodoCompletion} />
+              </div>
+              <div id="create-todo-form">
+                <TodoForm createTodo={createTodo}/>
+              </div>
+            </>
           )}
         </div>
       </div>
