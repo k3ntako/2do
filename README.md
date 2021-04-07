@@ -44,7 +44,8 @@ Clone the repo and follow the steps below.
 ## Deployed Versions
 [Frontend(staging)](http://mattkentaro-frontend-dev.s3-website-us-west-1.amazonaws.com/)  
 [Frontend(production)](http://mattkentaro-frontend-prod.s3-website-us-west-1.amazonaws.com/)  
-[Spring API(staging)](http://todobackend-staging.eba-pinzma4i.us-west-1.elasticbeanstalk.com/health-check)
+[Spring API(staging)](http://todobackend-staging.us-west-1.elasticbeanstalk.com/health-check/)   
+[Spring API(production)](http://todobackend-production.us-west-1.elasticbeanstalk.com/health-check/)
 
 ## Running Tests
 
@@ -174,6 +175,7 @@ These are the steps we took to deploy the frontend React app to an S3 bucket, an
     ```
 
 ### API | AWS Elastic Beanstalk
+#### Staging
 1. Assume `InfrastructureProvisioner` role (see above)
 2. Create a new application:
     ```
@@ -186,7 +188,7 @@ These are the steps we took to deploy the frontend React app to an S3 bucket, an
     Follow the prompts to enter relevant information/settings
 4. Create new environment to deploy to:
     ```
-    eb create <environment name>
+    eb create <environment name>  -db -db.engine postgres -db.user postgres -db.pass postgres -db.version="12.5"
     ```
 5. Build new Jar:
     ```
@@ -208,3 +210,11 @@ These are the steps we took to deploy the frontend React app to an S3 bucket, an
     ```
     eb setenv spring_profiles_active=aws
     ```
+
+#### Production
+
+Make sure you have completed the steps for "Staging". The following command will clone the environment and deploy the application that is deployed to staging.
+
+```
+$ eb clone <name of environment to clone> -n <production environment name> --cname <production environment CNAME>
+```
