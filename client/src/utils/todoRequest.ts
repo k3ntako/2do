@@ -1,41 +1,48 @@
-import { ApiTodo, ApiUpdateResponse } from '../data'
-import { ApiEndpoints } from './index'
+import { ApiTodo, ApiUpdateResponse } from "../data";
+import { ApiEndpoints } from "./index";
 
 export const getTodosRequest = (): Promise<ApiTodo[]> => {
-  return todoRequest({ endpoint: ApiEndpoints.get(), method: 'GET' })
-}
+  return todoRequest({ endpoint: ApiEndpoints.get(), method: "GET" });
+};
 
-export const updateTodoRequest = (todoId: string, body: string): Promise<ApiUpdateResponse> => {
-  return todoRequest({ endpoint: ApiEndpoints.update(todoId), method: 'PATCH', body })
-}
+export const updateTodoRequest = (
+  todoId: string,
+  body: string
+): Promise<ApiUpdateResponse> => {
+  return todoRequest({
+    endpoint: ApiEndpoints.update(todoId),
+    method: "PATCH",
+    body,
+  });
+};
 
 export const todoRequest = ({
   endpoint,
   method,
-  body
+  body,
 }: {
-  endpoint: string
-  method: string
-  body?: string
+  endpoint: string;
+  method: string;
+  body?: string;
 }): Promise<any> => {
   return new Promise((resolve, reject) => {
     fetch(endpoint, {
       method,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body
+      body,
     })
-      .then(response => response.json())
-      .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.error) {
-          reject(data.error)
+          reject(data.error);
         } else {
-          resolve(data)
+          resolve(data);
         }
       })
-      .catch(err => {
-        reject(err)
-      })
-  })
-}
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
