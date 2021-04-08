@@ -3,6 +3,7 @@ package com.kentaromatt.todoapi;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -22,6 +23,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.mockito.Mockito.any;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(ToDoController.class)
@@ -265,9 +267,12 @@ public class ToDoControllerTest {
     @Test
     public void testPostToToDosReturnsJson() throws Exception {
         Map<String, String> requestBodyObject = Map.of("description", "Walk cat", "dueDate", "2021-04-20");
+        ToDo todo = new ToDo("Walk cat", LocalDate.parse("2021-04-20"));
 
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
+
+        when(repository.save(any())).thenReturn(todo);
         
         mvc.perform(
             MockMvcRequestBuilders.post("/api/todos")
@@ -275,7 +280,7 @@ public class ToDoControllerTest {
                 .content(requestBodyJson))
                     .andExpect(MockMvcResultMatchers.jsonPath("$.dueDate", equalTo("2021-04-20")))
                     .andExpect(MockMvcResultMatchers.jsonPath("$.description", equalTo("Walk cat")))
-                    .andExpect(MockMvcResultMatchers.jsonPath("$.isComplete", equalTo("false")))
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.isComplete", equalTo(false)))
                     .andExpect(MockMvcResultMatchers.jsonPath("$.id").exists());
     }
 
@@ -295,7 +300,23 @@ public class ToDoControllerTest {
 
     @Test
     public void testPostToToDosReturns400IfDescriptionIsEmptyString() throws Exception {
-        Map<String, String> requestBodyObject = Map.of("dueDate", "2021-04-20");
+        Map<String, String> requestBodyObject = Map.of("description", "", "dueDate", "2021-04-20");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
+        
+        mvc.perform(
+            MockMvcRequestBuilders.post("/api/todos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBodyJson))
+                    .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+    }
+
+    @Test
+    public void testPostToToDosReturns400IfDescriptionIsNull() throws Exception {
+        HashMap<String, String> requestBodyObject = new HashMap<String, String>();
+        requestBodyObject.put("description", null);
+        requestBodyObject.put("dueDate", "2021-04-20");
 
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
@@ -319,5 +340,23 @@ public class ToDoControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(requestBodyJson))
                     .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+    }
+
+    @Test
+    public void testPostToToDosAcceptsBodyWithoutDate() throws Exception {
+        Map<String, String> requestBodyObject = Map.of("description", "Feed cat");
+        ToDo todo = new ToDo("Feed cat");
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
+        
+        when(repository.save(any())).thenReturn(todo);
+
+        mvc.perform(
+            MockMvcRequestBuilders.post("/api/todos")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestBodyJson))
+                    .andExpect(MockMvcResultMatchers.status().is2xxSuccessful())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.description", equalTo("Feed cat")));
     }
 }

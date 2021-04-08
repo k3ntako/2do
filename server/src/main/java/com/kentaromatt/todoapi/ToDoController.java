@@ -36,25 +36,21 @@ public class ToDoController {
     }
 
     @PostMapping(path = "/todos")
-    public @ResponseBody HashMap<String, String> addToDo(@RequestBody HashMap<String, String> requestMap) {
-        if (!requestMap.containsKey("description") || requestMap.get("description") == "") {
+    public @ResponseBody ToDo addToDo(@RequestBody HashMap<String, String> requestMap) {
+        if (!requestMap.containsKey("description") || requestMap.get("description") == null || requestMap.get("description").isEmpty()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Description is required");
         }
-        String description = requestMap.get("description");
-        try {
-            LocalDate dueDate = LocalDate.parse(requestMap.get("dueDate"));
-            ToDo newToDo = new ToDo(description, dueDate);
-            repository.save(newToDo);
-            return new HashMap<String, String>(){{
-                put("id", newToDo.getId().toString());
-                put("description", newToDo.getDescription());
-                put("dueDate", newToDo.getDueDate().toString());
-                put("isComplete", newToDo.getIsComplete().toString());
-            }};
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dueDate must be in format YYYY-MM-DD");
+        LocalDate dueDate = null;
+        if (requestMap.containsKey("dueDate")) {
+            try {
+                dueDate = LocalDate.parse(requestMap.get("dueDate"));
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dueDate must be in format YYYY-MM-DD");
+            }
         }
-
+        String description = requestMap.get("description");
+        ToDo newToDo = dueDate != null ? new ToDo(description, dueDate) : new ToDo(description);
+        return repository.save(newToDo);
     }
 
     static private class CompletedReqBody{
