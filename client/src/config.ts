@@ -14,11 +14,11 @@ const config: IConfig = {
   },
   staging: {
     SERVER_URL:
-      "http://todobackend-staging.us-west-1.elasticbeanstalk.com/health-check",
+      "http://todobackend-staging.us-west-1.elasticbeanstalk.com",
   },
   production: {
     SERVER_URL:
-      "http://todobackend-production.us-west-1.elasticbeanstalk.com/health-check",
+      "http://todobackend-production.us-west-1.elasticbeanstalk.com",
   },
 };
 
