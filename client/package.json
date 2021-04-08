@@ -25,11 +25,15 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "cypress": "^6.8.0",
+    "pg": "^8.5.1",
     "prettier": "^2.2.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "REACT_APP_ENV=local react-scripts start",
+    "build": "REACT_APP_ENV=local react-scripts build",
+    "build-staging": "REACT_APP_ENV=staging react-scripts build",
+    "build-production": "REACT_APP_ENV=production react-scripts build",
+    "start-test-backend": "./start_spring_test_server.sh",
     "test": "react-scripts test",
     "test:e2e": "yarn start & cypress open",
     "eject": "react-scripts eject"

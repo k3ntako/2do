@@ -1,8 +1,17 @@
 /// <reference types="cypress" />
 
 describe("Listing todos on page load", () => {
+  before(() => {
+    cy.task("wipeTable", "to_do");
+    cy.task("seedDatabase");
+  });
+
   beforeEach(() => {
     cy.visit("/");
+  });
+
+  after(() => {
+    cy.task("wipeTable", "to_do");
   });
 
   describe("user loads homepage", () => {

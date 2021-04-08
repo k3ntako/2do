@@ -3,7 +3,7 @@
 describe("API endpoint returns 404", function () {
   beforeEach(() => {
     cy.fixture("todo/GET-404").then((body) => {
-      cy.intercept("GET", /\.mock.pstmn.io\/get/, {
+      cy.intercept("GET", /api\/todos/, {
         statusCode: 404,
         body,
       });
