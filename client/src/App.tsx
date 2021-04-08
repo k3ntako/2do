@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import './App.scss'
 import { ChakraProvider, Spinner } from '@chakra-ui/react'
 import { TodoCollection, ErrorAlert, TodoForm } from './components'
-import { Todo, sortTodos, adaptTodo } from './data'
-import { getTodosRequest, updateTodoRequest } from './utils'
+import { Todo, sortTodos, adaptTodo, ApiTodo } from './data'
+import { getTodosRequest, updateTodoRequest, createTodoRequest } from './utils'
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([])
@@ -69,6 +69,10 @@ const App = () => {
     description: string;
     dueDate?: string | undefined;
   }): Promise<void> => {
+    const todo: ApiTodo = await createTodoRequest({description, dueDate});
+    const adaptedTodo = adaptTodo(todo)
+    const sortedTodos = sortTodos(todos.concat(adaptedTodo))
+    setTodos(sortedTodos)
   }
 
   return (
