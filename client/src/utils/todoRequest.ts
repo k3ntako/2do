@@ -1,6 +1,10 @@
 import { ApiTodo, ApiUpdateResponse } from "../data";
 import { ApiEndpoints } from "./index";
 
+export const createTodoRequest = (body: { description: string, dueDate?: string }): Promise<ApiTodo> => {
+  return todoRequest({ endpoint: ApiEndpoints.create(), method: 'POST', body :JSON.stringify(body) })
+}
+
 export const getTodosRequest = (): Promise<ApiTodo[]> => {
   return todoRequest({ endpoint: ApiEndpoints.get(), method: "GET" });
 };
