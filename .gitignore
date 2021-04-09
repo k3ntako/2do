@@ -3,6 +3,7 @@ build
 bin
 .env*
 client/cypress/integration/examples
+.prettierrc
 
 ### Spring ###
 target/

@@ -43,6 +43,7 @@ export const TodoCollection = ({
             }
             role="checkbox"
             aria-checked={todo.isComplete}
+            data-testid="todo-container"
           >
             {todo.isUpdating ? (
               <Spinner

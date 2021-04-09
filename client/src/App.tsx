@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './App.scss'
 import { ChakraProvider, Spinner } from '@chakra-ui/react'
-import { TodoCollection, ErrorAlert } from './components'
-import { Todo, sortTodos, adaptTodo } from './data'
-import { getTodosRequest, updateTodoRequest } from './utils'
+import { TodoCollection, ErrorAlert, TodoForm } from './components'
+import { Todo, sortTodos, adaptTodo, ApiTodo } from './data'
+import { getTodosRequest, updateTodoRequest, createTodoRequest } from './utils'
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([])
@@ -14,12 +14,12 @@ const App = () => {
     setError(null)
     setLoaderStatus(true)
     getTodosRequest()
-      .then(todos => {
+      .then((todos) => {
         const adaptedTodos = todos.map(adaptTodo)
         const sortedTodos = sortTodos(adaptedTodos)
         setTodos(sortedTodos)
       })
-      .catch(err => {
+      .catch((err) => {
         setError(`${err.name} - ${err.message}`)
       })
       .finally(() => {
@@ -30,7 +30,7 @@ const App = () => {
   const toggleTodoCompletion = async ({
     todoId,
     currentTodoStatus,
-    currentPosition
+    currentPosition,
   }: {
     todoId: string
     currentTodoStatus: boolean
@@ -42,10 +42,10 @@ const App = () => {
     setError(null)
 
     const requestBody = JSON.stringify({
-      isComplete: !currentTodoStatus
+      isComplete: !currentTodoStatus,
     })
     updateTodoRequest(todoId, requestBody)
-      .then(response => {
+      .then((response) => {
         if (response.status === 'success') {
           const todosCopy = [...todos]
           todosCopy[currentPosition].isComplete = !currentTodoStatus
@@ -54,12 +54,31 @@ const App = () => {
           setTodos(resortedTodos)
         }
       })
-      .catch(err => {
+      .catch((err) => {
         setError(`${err.name} - ${err.message}`)
         const todosCopy = [...todos]
         todosCopy[currentPosition].isUpdating = false
         setTodos(todosCopy)
       })
+  }
+
+  const createTodo = async ({
+    description,
+    dueDate,
+  }: {
+    description: string
+    dueDate?: string | undefined
+  }): Promise<void> => {
+    createTodoRequest({ description, dueDate }).then((response) => {
+      if (response.error) {
+        setError(response.message)
+      } else {
+        const todo: ApiTodo = response
+        const adaptedTodo = adaptTodo(todo)
+        const sortedTodos = sortTodos(todos.concat(adaptedTodo))
+        setTodos(sortedTodos)
+      }
+    })
   }
 
   return (
@@ -81,9 +100,17 @@ const App = () => {
               />
             </div>
           ) : (
-            <div id="card-content">
-              <TodoCollection todos={todos} toggleTodoCompletion={toggleTodoCompletion} />
-            </div>
+            <>
+              <div id="card-content">
+                <TodoCollection
+                  todos={todos}
+                  toggleTodoCompletion={toggleTodoCompletion}
+                />
+              </div>
+              <div id="create-todo-form">
+                <TodoForm createTodo={createTodo} />
+              </div>
+            </>
           )}
         </div>
       </div>

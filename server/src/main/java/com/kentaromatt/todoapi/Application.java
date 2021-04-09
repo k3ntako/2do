@@ -23,7 +23,7 @@ public class Application {
 								"http://localhost:3000",
 								"http://mattkentaro-frontend-dev.s3-website-us-west-1.amazonaws.com",
 								"http://mattkentaro-frontend-prod.s3-website-us-west-1.amazonaws.com")
-						.allowedMethods("GET", "PATCH");
+						.allowedMethods("GET", "PATCH", "POST");
 			}
 		};
 	}
