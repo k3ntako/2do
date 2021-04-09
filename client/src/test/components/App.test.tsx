@@ -52,7 +52,7 @@ const mockCreateResponse: ApiTodo = {
 };
 
 const server = setupServer(
-  rest.get(/mock.pstmn.io\/get/, (req, res, ctx) => {
+  rest.get(/api\/todos/, (req, res, ctx) => {
     return res(ctx.json(mockGetTodosResponse));
   }),
   rest.post(/api\/todos/, (req, res, ctx) => {
@@ -82,7 +82,7 @@ const testTodoOrder = (sortedTodos: Todo[], todoContainers: HTMLElement[]) => {
   });
 };
 
-test("Todos are sorted when user submits new todo", async () => {
+test("Todos are sorted when page loads", async () => {
   const { findAllByTestId } = render(<App />);
   const todoContainers = await findAllByTestId("todo-container");
 

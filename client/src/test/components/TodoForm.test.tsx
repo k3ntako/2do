@@ -20,7 +20,7 @@ test("User submits new todo", async () => {
   const submitButton: HTMLElement = getByText(/submit/i);
   userEvent.click(submitButton);
 
-  expect(mockCreateTodo).toBeCalled;
+  expect(mockCreateTodo).toBeCalled();
   expect(mockCreateTodo.mock.calls).toHaveLength(1);
   expect(mockCreateTodo.mock.calls[0][0].description).toEqual(
     "Travel to Canada"
