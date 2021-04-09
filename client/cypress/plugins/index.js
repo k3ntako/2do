@@ -19,33 +19,27 @@ const { Client } = require("pg");
  */
 // eslint-disable-next-line no-unused-vars
 
+const client = new Client({
+  user: "postgres",
+  host: "localhost",
+  database: "todo_testing",
+  password: "postgres",
+  port: 5432,
+});
+
+client.connect();
+
+
 module.exports = (on, config) => {
   on("task", {
     wipeTable: async (table) => {
-      const client = new Client({
-        user: "postgres",
-        host: "localhost",
-        database: "todo_testing",
-        password: "postgres",
-        port: 5432,
-      });
-
-      await client.connect();
 
       const query = `DELETE FROM ${table};`;
       return await client.query(query);
     },
 
     seedDatabase: async () => {
-      const client = new Client({
-        user: "postgres",
-        host: "localhost",
-        database: "todo_testing",
-        password: "postgres",
-        port: 5432,
-      });
 
-      await client.connect();
 
       const query = `INSERT INTO to_do (description, due_date)
       VALUES
