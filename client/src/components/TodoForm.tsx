@@ -33,10 +33,13 @@ export const TodoForm = ({
 
   return (
     <Box padding="2em">
-      <Heading size="md">Create a Todo</Heading>
+      <Heading size="md" textAlign="center" marginBottom="16px">
+        Create a To-do
+      </Heading>
       <Flex>
         <Input
           name="description"
+          placeholder="To-do"
           type="text"
           onChange={onDescriptionChange}
           aria-label="Description"
@@ -47,6 +50,7 @@ export const TodoForm = ({
           onChange={onDueDateChange}
           data-testid="dueDate"
           width="250px"
+          marginLeft="12px"
         />
       </Flex>
       <Flex>
