@@ -20,11 +20,20 @@ export interface ApiUpdateResponse {
   status: string
 }
 
+export interface ApiPostResponse {
+  id: string
+  description: string
+  isComplete: boolean
+  dueDate?: string | null
+  error?: string
+  message?: string
+}
+
 export const adaptTodo = (apiTodo: ApiTodo): Todo => {
   return {
     ...apiTodo,
     formattedDueDate: apiTodo.dueDate ? formatDate(apiTodo.dueDate) : null,
-    isUpdating: false
+    isUpdating: false,
   }
 }
 
@@ -43,7 +52,11 @@ export const sortTodos = (todos: Todo[]): Todo[] => {
     }
   })
 
-  return [...sortBySoonest(overdue), ...sortBySoonest(normal), ...sortBySoonest(completed)]
+  return [
+    ...sortBySoonest(overdue),
+    ...sortBySoonest(normal),
+    ...sortBySoonest(completed),
+  ]
 }
 
 export const sortBySoonest = (todos: Todo[]): Todo[] => {

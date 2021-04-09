@@ -14,12 +14,12 @@ const App = () => {
     setError(null)
     setLoaderStatus(true)
     getTodosRequest()
-      .then(todos => {
+      .then((todos) => {
         const adaptedTodos = todos.map(adaptTodo)
         const sortedTodos = sortTodos(adaptedTodos)
         setTodos(sortedTodos)
       })
-      .catch(err => {
+      .catch((err) => {
         setError(`${err.name} - ${err.message}`)
       })
       .finally(() => {
@@ -30,7 +30,7 @@ const App = () => {
   const toggleTodoCompletion = async ({
     todoId,
     currentTodoStatus,
-    currentPosition
+    currentPosition,
   }: {
     todoId: string
     currentTodoStatus: boolean
@@ -42,10 +42,10 @@ const App = () => {
     setError(null)
 
     const requestBody = JSON.stringify({
-      isComplete: !currentTodoStatus
+      isComplete: !currentTodoStatus,
     })
     updateTodoRequest(todoId, requestBody)
-      .then(response => {
+      .then((response) => {
         if (response.status === 'success') {
           const todosCopy = [...todos]
           todosCopy[currentPosition].isComplete = !currentTodoStatus
@@ -54,7 +54,7 @@ const App = () => {
           setTodos(resortedTodos)
         }
       })
-      .catch(err => {
+      .catch((err) => {
         setError(`${err.name} - ${err.message}`)
         const todosCopy = [...todos]
         todosCopy[currentPosition].isUpdating = false
@@ -66,13 +66,19 @@ const App = () => {
     description,
     dueDate,
   }: {
-    description: string;
-    dueDate?: string | undefined;
+    description: string
+    dueDate?: string | undefined
   }): Promise<void> => {
-    const todo: ApiTodo = await createTodoRequest({description, dueDate});
-    const adaptedTodo = adaptTodo(todo)
-    const sortedTodos = sortTodos(todos.concat(adaptedTodo))
-    setTodos(sortedTodos)
+    createTodoRequest({ description, dueDate }).then((response) => {
+      if (response.error) {
+        setError(response.message)
+      } else {
+        const todo: ApiTodo = response
+        const adaptedTodo = adaptTodo(todo)
+        const sortedTodos = sortTodos(todos.concat(adaptedTodo))
+        setTodos(sortedTodos)
+      }
+    })
   }
 
   return (
@@ -96,10 +102,13 @@ const App = () => {
           ) : (
             <>
               <div id="card-content">
-                <TodoCollection todos={todos} toggleTodoCompletion={toggleTodoCompletion} />
+                <TodoCollection
+                  todos={todos}
+                  toggleTodoCompletion={toggleTodoCompletion}
+                />
               </div>
               <div id="create-todo-form">
-                <TodoForm createTodo={createTodo}/>
+                <TodoForm createTodo={createTodo} />
               </div>
             </>
           )}
