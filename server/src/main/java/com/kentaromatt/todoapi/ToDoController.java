@@ -41,7 +41,7 @@ public class ToDoController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Description is required");
         }
         LocalDate dueDate = null;
-        if (requestMap.containsKey("dueDate")) {
+        if (requestMap.containsKey("dueDate") && requestMap.get("dueDate") != "") {
             try {
                 dueDate = LocalDate.parse(requestMap.get("dueDate"));
             } catch (Exception e) {
