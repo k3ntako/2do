@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Input } from "@chakra-ui/react";
+import { Button, Input, Box, Heading, Flex, Spacer } from "@chakra-ui/react";
 
 export const TodoForm = ({
   createTodo,
@@ -14,7 +14,7 @@ export const TodoForm = ({
 }): JSX.Element => {
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
-  
+
   const onSubmit = () => {
     createTodo({ description, dueDate });
   };
@@ -32,23 +32,29 @@ export const TodoForm = ({
   };
 
   return (
-    <>
-      <h2>Create a Todo</h2>
-      <Input
-        name="description"
-        type="text"
-        onChange={onDescriptionChange}
-        aria-label="Description"
-      />
-      <Input
-        name="dueDate"
-        type="date"
-        onChange={onDueDateChange}
-        data-testid="dueDate"
-      />
-      <Button colorScheme="blue" onClick={onSubmit}>
-        Submit
-      </Button>
-    </>
+    <Box padding="2em">
+      <Heading size="md">Create a Todo</Heading>
+      <Flex>
+        <Input
+          name="description"
+          type="text"
+          onChange={onDescriptionChange}
+          aria-label="Description"
+        />
+        <Input
+          name="dueDate"
+          type="date"
+          onChange={onDueDateChange}
+          data-testid="dueDate"
+          width="250px"
+        />
+      </Flex>
+      <Flex>
+        <Spacer />
+        <Button colorScheme="blue" onClick={onSubmit} margin="0.5em 0">
+          Submit
+        </Button>
+      </Flex>
+    </Box>
   );
 };
