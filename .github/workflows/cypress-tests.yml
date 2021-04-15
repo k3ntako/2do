@@ -42,4 +42,4 @@ jobs:
           start: |
             npm start
             npm run start-test-backend
-          wait-on: 'http://localhost:3000, http://localhost:8080/health-check'
+          wait-on: "http://localhost:3000, http://localhost:8080/health-check"

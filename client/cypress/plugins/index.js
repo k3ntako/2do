@@ -29,18 +29,14 @@ const client = new Client({
 
 client.connect();
 
-
 module.exports = (on, config) => {
   on("task", {
     wipeTable: async (table) => {
-
       const query = `DELETE FROM ${table};`;
       return await client.query(query);
     },
 
     seedDatabase: async () => {
-
-
       const query = `INSERT INTO to_do (description, due_date)
       VALUES
         ('File 2020 Taxes', TO_DATE('04/04/2021', 'MM/DD/YYYY')),

@@ -1,5 +1,10 @@
-import React from 'react'
-import { Alert, AlertIcon, AlertTitle, AlertDescription } from '@chakra-ui/react'
+import React from "react";
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from "@chakra-ui/react";
 
 export const ErrorAlert = ({ error }: { error: string }): JSX.Element => {
   return (
@@ -10,5 +15,5 @@ export const ErrorAlert = ({ error }: { error: string }): JSX.Element => {
         <AlertDescription>{error}</AlertDescription>
       </Alert>
     </div>
-  )
-}
+  );
+};
