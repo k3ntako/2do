@@ -69,16 +69,21 @@ const App = () => {
     description: string;
     dueDate?: string | undefined;
   }): Promise<void> => {
-    createTodoRequest({ description, dueDate }).then((response) => {
+    try {
+      const response = await createTodoRequest({ description, dueDate });
+
       if (response.error) {
-        setError(response.message);
-      } else {
+        throw new Error(response.message);
+      }
+
         const todo: ApiTodo = response;
         const adaptedTodo = adaptTodo(todo);
         const sortedTodos = sortTodos(todos.concat(adaptedTodo));
         setTodos(sortedTodos);
+    } catch (error) {
+      setError(error.message);
+      throw Error(error);
       }
-    });
   };
 
   return (
