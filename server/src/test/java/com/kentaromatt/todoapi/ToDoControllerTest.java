@@ -163,6 +163,7 @@ public class ToDoControllerTest {
 
         Object requestBodyObject = new Object() {
             public final Boolean isComplete = false;
+            public final String description = "Feed cat";
         };
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
@@ -192,6 +193,7 @@ public class ToDoControllerTest {
 
         Object requestBodyObject = new Object() {
             public final Boolean isComplete = true;
+            public final String description = "Feed cat";
         };
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
@@ -220,6 +222,7 @@ public class ToDoControllerTest {
 
         Object requestBodyObject = new Object() {
             public final Boolean isComplete = false;
+            public final String description = "Feed cat";
         };
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBodyJson = objectMapper.writeValueAsString(requestBodyObject);
@@ -249,8 +252,9 @@ public class ToDoControllerTest {
                 .header("Access-Control-Request-Method", "GET")
                 .header("Origin", "http://localhost:3000"))
                 .andExpect(header().string("Access-Control-Allow-Origin", "http://localhost:3000"));
-    };
+    }
 
+    @Test
     public void testPostToToDosReturns200OnSuccess() throws Exception {
         Map<String, String> requestBodyObject = Map.of("description", "Feed cat", "dueDate", "2021-04-20");
 
@@ -314,7 +318,7 @@ public class ToDoControllerTest {
 
     @Test
     public void testPostToToDosReturns400IfDescriptionIsNull() throws Exception {
-        HashMap<String, String> requestBodyObject = new HashMap<String, String>();
+        HashMap<String, String> requestBodyObject = new HashMap<>();
         requestBodyObject.put("description", null);
         requestBodyObject.put("dueDate", "2021-04-20");
 

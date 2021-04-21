@@ -15,8 +15,14 @@ export const TodoForm = ({
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
 
-  const onSubmit = () => {
-    createTodo({ description, dueDate });
+  const onSubmit = async () => {
+    try {
+      await createTodo({ description, dueDate });
+      setDescription("");
+      setDueDate("");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const onDescriptionChange: React.ChangeEventHandler<HTMLInputElement> = (
@@ -41,12 +47,14 @@ export const TodoForm = ({
           name="description"
           placeholder="To-do"
           type="text"
+          value={description}
           onChange={onDescriptionChange}
           aria-label="Description"
         />
         <Input
           name="dueDate"
           type="date"
+          value={dueDate}
           onChange={onDueDateChange}
           data-testid="dueDate"
           width="250px"

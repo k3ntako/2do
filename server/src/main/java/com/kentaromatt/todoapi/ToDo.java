@@ -40,6 +40,10 @@ public class ToDo {
         return dueDate;
     }
 
+    public void setDescription(String description) { this.description = description; }
+
+    public void setDueDate(LocalDate dueDate) { this.dueDate = dueDate; }
+
     public void setIsComplete(Boolean isComplete) { this.isComplete = isComplete; }
 
     public void toggleIsComplete() {

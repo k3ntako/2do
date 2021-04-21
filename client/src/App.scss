@@ -68,22 +68,23 @@
 }
 
 .todo-container {
+  display: flex;
+}
+
+.todo-content {
+  flex: 1;
   box-sizing: border-box;
   height: min-content;
-  label,
-  .chakra-checkbox__label {
-    width: 100%;
-  }
-  display: grid;
+  display: flex;
   grid-template-columns: 30px 1fr;
-  align-items: start;
+  align-items: center;
   justify-content: start;
   padding: 10px 16px;
-  margin: 0;
+  margin: 0 10px 0 0;
 
   .row {
     cursor: pointer;
-    margin-top: -5px;
+    margin-left: 16px;
   }
 
   &:hover {
@@ -92,17 +93,25 @@
   }
 }
 
-.todo-container--overdue {
+.todo-content--overdue {
   .tag {
     color: var(--red-400);
     border-color: var(--red-400);
   }
 }
 
-.todo-container--complete {
+.todo-content--complete {
   .description {
     text-decoration: line-through;
     color: var(--grey-500);
+  }
+}
+
+.edit-todo-modal-body {
+  .chakra-input {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 8px;
   }
 }
 
@@ -119,7 +128,6 @@
     .row {
       flex-direction: row;
       justify-content: space-between;
-      margin: auto;
     }
 
     .todo-container {
