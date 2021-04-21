@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { TodoForm } from "../../components";
 
@@ -18,7 +18,7 @@ test("User submits new todo", async () => {
   userEvent.type(dueDateInput, "2024-04-15");
 
   const submitButton: HTMLElement = getByText(/submit/i);
-  userEvent.click(submitButton);
+  await waitFor(() => userEvent.click(submitButton));
 
   expect(mockCreateTodo).toBeCalled();
   expect(mockCreateTodo.mock.calls).toHaveLength(1);
