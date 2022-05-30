@@ -25,9 +25,19 @@ public class ToDoController {
     }
 
     @PatchMapping(path = "/todo/{id}")
-    public @ResponseBody Map<String, String> updateToDo(@PathVariable String id, @RequestBody CompletedReqBody completedReqBody) {
+    public @ResponseBody Map<String, String> updateToDo(@PathVariable String id, @RequestBody PatchReqBody patchReqBody) {
         ToDo todo = repository.findById(UUID.fromString(id)).get();
-        todo.setIsComplete(completedReqBody.isComplete);
+        todo.setDescription(patchReqBody.description);
+        todo.setIsComplete(patchReqBody.isComplete);
+
+        if (patchReqBody.dueDate != (null) && !patchReqBody.dueDate.isBlank()) {
+            try {
+                todo.setDueDate(LocalDate.parse(patchReqBody.dueDate));
+            } catch (Exception e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "dueDate must be in format YYYY-MM-DD");
+            }
+        }
+
         repository.save(todo);
 
         return new HashMap<>(){{
@@ -41,7 +51,7 @@ public class ToDoController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Description is required");
         }
         LocalDate dueDate = null;
-        if (requestMap.containsKey("dueDate") && requestMap.get("dueDate") != "") {
+        if (requestMap.containsKey("dueDate") && !requestMap.get("dueDate").equals("")) {
             try {
                 dueDate = LocalDate.parse(requestMap.get("dueDate"));
             } catch (Exception e) {
@@ -53,9 +63,15 @@ public class ToDoController {
         return repository.save(newToDo);
     }
 
-    static private class CompletedReqBody{
+    static private class PatchReqBody {
+        private String description;
+        private String dueDate;
         private Boolean isComplete;
 
+        public String getDescription(){ return description; }
+        public void setDescription(String description){ this.description = description; }
+        public String getDueDate(){ return dueDate; }
+        public void setDueDate(String dueDate){ this.dueDate = dueDate; }
         public Boolean getIsComplete(){ return isComplete; }
         public void setIsComplete(Boolean isComplete){ this.isComplete = isComplete; }
     }
