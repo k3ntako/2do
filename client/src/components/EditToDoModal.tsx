@@ -9,8 +9,14 @@ import {
   ModalCloseButton,
   Button,
   Input,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Select,
 } from "@chakra-ui/react";
 import { Todo } from "../data";
+
+const dateRegex = /^[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]$/;
 
 export const EditToDoModal = ({
   todo,
@@ -32,11 +38,13 @@ export const EditToDoModal = ({
 }) => {
   const [description, setDescription] = useState<string>("");
   const [dueDate, setDueDate] = useState<string>("");
+  const [isComplete, setIsComplete] = useState<boolean>(false);
 
   useEffect(() => {
     if (todo) {
       setDescription(todo.description);
       setDueDate(todo.dueDate || "");
+      setIsComplete(todo.isComplete);
     }
   }, [todo]);
 
@@ -52,6 +60,15 @@ export const EditToDoModal = ({
     setDueDate(e.currentTarget.value);
   };
 
+  const onIsCompleteChange: React.ChangeEventHandler<HTMLSelectElement> = (
+    e: React.FormEvent<HTMLSelectElement>
+  ) => {
+    setIsComplete(e.currentTarget.value === "true" ? true : false);
+  };
+
+  const descriptionInvalid = !description?.trim();
+  const dateInvalid = !dateRegex.test(dueDate);
+
   return (
     <Modal isOpen={!!todo} onClose={onClose} id="edit-modal">
       <ModalOverlay />
@@ -60,24 +77,44 @@ export const EditToDoModal = ({
         <ModalCloseButton />
         <ModalBody>
           <div className="edit-todo-modal-body">
-            <Input
-              name="description"
-              placeholder="To-do"
-              type="text"
-              value={description}
-              onChange={onDescriptionChange}
-              aria-label="Description"
-            />
-            <Input
-              className="asd"
-              name="dueDate"
-              type="date"
-              value={dueDate}
-              onChange={onDueDateChange}
-              data-testid="dueDate"
-              width="250px"
-              marginLeft="12px"
-            />
+            <FormControl isInvalid={descriptionInvalid}>
+              <FormLabel>Description</FormLabel>
+              <Input
+                name="description"
+                placeholder="To-do"
+                type="text"
+                value={description}
+                onChange={onDescriptionChange}
+                aria-label="Description"
+              />
+              <FormErrorMessage>Description cannot be blank</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={dateInvalid}>
+              <FormLabel>Due Date</FormLabel>
+              <Input
+                name="dueDate"
+                type="date"
+                value={dueDate}
+                onChange={onDueDateChange}
+                placeholder="MM-DD-YYYY"
+                data-testid="dueDate"
+                width="250px"
+                marginLeft="12px"
+              />
+              <FormErrorMessage>Invalid date</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={dateInvalid}>
+              <FormLabel>Completed</FormLabel>
+              <Select
+                name="isComplete"
+                placeholder="Select option"
+                value={isComplete ? "true" : "false"}
+                onChange={onIsCompleteChange}
+              >
+                <option value={"true"}>Yes</option>
+                <option value={"false"}>No</option>
+              </Select>
+            </FormControl>
           </div>
         </ModalBody>
         <ModalFooter>
@@ -87,6 +124,7 @@ export const EditToDoModal = ({
           <Button
             colorScheme="blue"
             mr={3}
+            disabled={descriptionInvalid || dateInvalid}
             onClick={() =>
               onSubmit({
                 todo: todo as Todo,

@@ -11,6 +11,8 @@ import { Todo, sortTodos, adaptTodo, ApiTodo } from "./data";
 import { getTodosRequest, updateTodoRequest, createTodoRequest } from "./utils";
 
 const App = () => {
+  console.log("process.env.BOB", process.env.REACT_APP_BOB);
+  console.log("process.env.KENTARO", process.env.REACT_APP_KENTARO);
   const [todos, setTodos] = useState<Todo[]>([]);
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
   const [isLoading, setLoaderStatus] = useState<boolean>(true);
